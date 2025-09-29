@@ -14,3 +14,8 @@
 - Individual Go developers who want to save time when starting a new project.
 - Teams who need consistent project structures across multiple repositories.
 - Beginners who benefit from a ready-to-run project scaffold.
+
+## Go packages used
+
+- [Cobra](https://pkg.go.dev/github.com/spf13/cobra): used to create CLI interfaces
+- [Viper](https://pkg.go.dev/github.com/spf13/viper): handles configuration
