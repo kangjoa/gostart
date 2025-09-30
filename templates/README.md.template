@@ -1,5 +1,5 @@
 # {{.ProjectName}}
 
-Created by {{.Author}}, ({{.Email}})
+Created by {{.Author}} ({{.Email}})
 
 A Go project created with go-new-project.

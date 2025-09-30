@@ -17,6 +17,15 @@ var rootCmd = &cobra.Command{
 func init() {
 	viper.SetDefault("author", "Your Name")
 	viper.SetDefault("email", "your.email@example.com")
+
+	viper.SetConfigName("config")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath("$HOME/.go-new-project")
+	viper.AddConfigPath(".")
+
+	if err := viper.ReadInConfig(); err != nil {
+		fmt.Printf("Error reading config file: %v\n", err)
+	}
 }
 
 func Execute() {

@@ -1,4 +1,4 @@
-module github.com/kangjoa/go-new-project
+module github.com/kangjoa/gostart
 
 go 1.25.0
 

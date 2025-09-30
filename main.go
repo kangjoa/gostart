@@ -1,6 +1,6 @@
 package main
 
-import "github.com/kangjoa/go-new-project/cmd"
+import "github.com/kangjoa/gostart/cmd"
 
 func main() {
 	cmd.Execute()
