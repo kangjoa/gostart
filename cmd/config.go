@@ -11,7 +11,7 @@ var configCmd = &cobra.Command{
 	Short: "Manage configuration settings",
 	Long:  "Manage configuration settings for the gostart tool.",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Configuration management")
+		fmt.Println("Updated configuration settings")
 	},
 }
 

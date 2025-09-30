@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var initCmd = &cobra.Command{
@@ -17,6 +18,9 @@ var initCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		projectName := args[0]
 		fmt.Printf("Initializing project: %s\n", projectName)
+		// Get author info
+		author := viper.GetString("author")
+		email := viper.GetString("email")
 
 		// Create project directory
 		if err := os.Mkdir(projectName, 0755); err != nil {
@@ -26,19 +30,19 @@ var initCmd = &cobra.Command{
 
 		// Create files from templates
 		if err := createFromTemplate("templates/go.mod.template",
-			filepath.Join(projectName, "go.mod"), projectName); err != nil {
+			filepath.Join(projectName, "go.mod"), projectName, author, email); err != nil {
 			fmt.Printf("Error creating go.mod: %v\n", err)
 			return
 		}
 
 		if err := createFromTemplate("templates/main.go.template",
-			filepath.Join(projectName, "main.go"), projectName); err != nil {
+			filepath.Join(projectName, "main.go"), projectName, author, email); err != nil {
 			fmt.Printf("Error creating main.go: %v\n", err)
 			return
 		}
 
 		if err := createFromTemplate("templates/README.md.template",
-			filepath.Join(projectName, "README.md"), projectName); err != nil {
+			filepath.Join(projectName, "README.md"), projectName, author, email); err != nil {
 			fmt.Printf("Error creating README.md: %v\n", err)
 			return
 		}
@@ -60,21 +64,25 @@ var initCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(initCmd)
+
+	// Add flags
+	initCmd.Flags().String("author", "", "Author name for the project")
+	initCmd.Flags().String("email", "", "Author email for the project")
+
+	viper.BindPFlags(initCmd.Flags())
 }
 
-func createFromTemplate(templatePath, outputPath, projectName string) error {
+func createFromTemplate(templatePath, outputPath, projectName string, author, email string) error {
 	template, err := os.ReadFile(templatePath)
 	if err != nil {
 		return err
 	}
 
 	content := strings.ReplaceAll(string(template), "{{.ProjectName}}", projectName)
+	content = strings.ReplaceAll(content, "{{.Author}}", author)
+	content = strings.ReplaceAll(content, "{{.Email}}", email)
 
-	if err := os.WriteFile(outputPath, []byte(content), 0644); err != nil {
-		return err
-	}
-
-	return nil
+	return os.WriteFile(outputPath, []byte(content), 0644)
 }
 
 func copyFile(src, dst string) error {
