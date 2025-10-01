@@ -4,7 +4,7 @@ Final project description and requirements found [here](https://github.com/Tech-
 
 ## Description
 
-gostart is A CLI tool that instantly generates standardized, lightweight Go project boilerplate.
+gostart is a CLI tool that instantly generates standardized, lightweight Go project boilerplate.
 
 ```zsh
 new-project/
@@ -53,4 +53,30 @@ gostart config
 gostart --help
 gostart init --help
 gostart config --help
+```
+
+## Testing
+
+2 table-driven tests and 1 benchmark test are in `cmd/init_test.go`. To run tests, navigate to that directory and then run:
+
+```zsh
+go test
+```
+
+Get verbose test output
+
+```zsh
+go test -v
+```
+
+Get test coverage
+
+```zsh
+go test -cover
+```
+
+Run the benchmark test
+
+```zsh
+go test -bench=
 ```
