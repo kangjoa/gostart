@@ -73,7 +73,7 @@ func init() {
 }
 
 func createFromTemplate(templatePath, outputPath, projectName string, author, email string) error {
-	template, err := os.ReadFile(templatePath)
+	template, err := templateFiles.ReadFile(templatePath)
 	if err != nil {
 		return err
 	}
@@ -86,7 +86,7 @@ func createFromTemplate(templatePath, outputPath, projectName string, author, em
 }
 
 func copyFile(src, dst string) error {
-	sourceFile, err := os.ReadFile(src)
+	sourceFile, err := templateFiles.ReadFile(src)
 	if err != nil {
 		return err
 	}

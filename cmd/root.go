@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"embed"
 	"fmt"
 	"os"
 
@@ -28,7 +29,10 @@ func init() {
 	}
 }
 
-func Execute() {
+var templateFiles embed.FS
+
+func Execute(templates embed.FS) {
+	templateFiles = templates
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
